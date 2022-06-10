@@ -6,21 +6,32 @@ typedef struct bit_field {
     unsigned int c : 32;
 } BitField_t;
 
+typedef struct normal_struct {
+    unsigned int a;
+    unsigned int b;
+    unsigned int c;
+} NormalStruct_t;
+
+typedef struct mixed_struct {
+    unsigned int a: 3;
+    unsigned int b;
+    unsigned int c;
+} MixedStruct_t;
+
 int main()
 {
     BitField_t bf;
 
     bf.a = 10000;
-    bf.b = 1000;
+    bf.b = 10000;
     bf.c = 10000;
 
-    printf("%u\n", bf.a);    //   1:        1, 비트 1개만 저장됨
-    printf("%u\n", bf.b);    //   7:      111, 비트 3개만 저장됨
-    printf("%u\n", bf.c);    // 127: 111 1111, 비트 7개만 저장됨
+    printf("%u\n", bf.a);    //  0:     10000 & b11 (2bit)
+    printf("%u\n", bf.b);    //  784:   10000 & b1111111111 (10bit) 
+    printf("%u\n", bf.c);    //  10000: 10000 & b1111.....1111 (32bit) 
 	
-	printf("struct sizeof (%d)\n", sizeof(BitField_t));
-//	printf("uint sizeof (%d)\n", sizeof(unsigned int));
-//	printf("uint sizeof (%d)\n", sizeof(unsigned short));
-//	printf("struct sizeof (%d)\n", sizeof(f1.a));
+	printf("bitfield struct sizeof (%d)\n", sizeof(BitField_t));
+	printf("normal struct sizeof (%d)\n", sizeof(NormalStruct_t));
+	printf("mixed struct sizeof (%d)\n", sizeof(MixedStruct_t));
     return 0;
 }
