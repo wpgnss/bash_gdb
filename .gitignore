@@ -3,4 +3,5 @@
 *.o
 *.order
 *.cmd
+*.ko
 
